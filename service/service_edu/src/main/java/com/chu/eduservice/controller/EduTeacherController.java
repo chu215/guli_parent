@@ -24,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/eduservice/teacher")
+@CrossOrigin
 public class EduTeacherController {
 
     @Autowired
@@ -48,7 +49,7 @@ public class EduTeacherController {
     }
 
     @GetMapping("/pageTeacher/{current}/{limit}")
-    public R pageList(@PathVariable("current") Long current, @PathVariable("limit") Long limit) {
+    public R pageList(@PathVariable("current") long current, @PathVariable("limit") long limit) {
 
         Page<EduTeacher> teacherPage = new Page<>(current, limit);
         teacherService.page(teacherPage, null);
@@ -60,8 +61,8 @@ public class EduTeacherController {
     }
 
     @PostMapping("/pageTeacherCondition/{current}/{limit}")
-    public R pageTeacherCondition(@PathVariable("current") Long current,
-                                  @PathVariable("limit") Long limit,
+    public R pageTeacherCondition(@PathVariable("current") long current,
+                                  @PathVariable("limit") long limit,
                                   @RequestBody(required = false) TeacherQuery teacherQuery) {
         Page<EduTeacher> page = new Page<>(current, limit);
 
@@ -82,6 +83,8 @@ public class EduTeacherController {
         if (!StringUtils.isEmpty(end)) {
             wrapper.le("gmt_create", end);
         }
+
+        wrapper.orderByDesc("gmt_modified");
 
         teacherService.page(page, wrapper);
         List<EduTeacher> records = page.getRecords();
