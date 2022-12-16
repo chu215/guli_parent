@@ -3,9 +3,11 @@ package com.chu.educenter.controller;
 
 import com.chu.commonutils.JwtUtils;
 import com.chu.commonutils.R;
+import com.chu.commonutils.vo.MemberVo;
 import com.chu.educenter.entity.UcenterMember;
 import com.chu.educenter.entity.vo.RegisterVo;
 import com.chu.educenter.service.UcenterMemberService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +47,15 @@ public class UcenterMemberController {
 
         UcenterMember member = memberService.getById(memberId);
         return R.ok().data("userInfo", member);
+    }
+
+    @PostMapping("/getInfo/{id}")
+    public MemberVo getInfo(@PathVariable String id) {
+        UcenterMember member = memberService.getById(id);
+        MemberVo memberVo = new MemberVo();
+        BeanUtils.copyProperties(member, memberVo);
+
+        return memberVo;
     }
 }
 
