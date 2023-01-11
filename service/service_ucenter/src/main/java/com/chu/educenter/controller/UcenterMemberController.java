@@ -4,6 +4,7 @@ package com.chu.educenter.controller;
 import com.chu.commonutils.JwtUtils;
 import com.chu.commonutils.R;
 import com.chu.commonutils.vo.MemberVo;
+import com.chu.commonutils.vo.UcenterMemberOrder;
 import com.chu.educenter.entity.UcenterMember;
 import com.chu.educenter.entity.vo.RegisterVo;
 import com.chu.educenter.service.UcenterMemberService;
@@ -50,12 +51,12 @@ public class UcenterMemberController {
     }
 
     @PostMapping("/getInfo/{id}")
-    public MemberVo getInfo(@PathVariable String id) {
+    public UcenterMemberOrder getInfo(@PathVariable String id) {
         UcenterMember member = memberService.getById(id);
-        MemberVo memberVo = new MemberVo();
-        BeanUtils.copyProperties(member, memberVo);
+        UcenterMemberOrder memberOrder = new UcenterMemberOrder();
+        BeanUtils.copyProperties(member, memberOrder);
 
-        return memberVo;
+        return memberOrder;
     }
 }
 
