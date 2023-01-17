@@ -120,6 +120,9 @@ public class PayLogServiceImpl extends ServiceImpl<PayLogMapper, PayLog> impleme
         if (order.getStatus().intValue() == 1) {
             return;
         }
+        // 表示已支付
+        order.setStatus(1);
+        orderService.updateById(order);
 
         // 向支付表添加支付记录
         PayLog payLog = new PayLog();

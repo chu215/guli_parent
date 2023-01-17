@@ -41,5 +41,21 @@ public class OrderController {
         Order order = orderService.getOne(orderQueryWrapper);
         return R.ok().data("item", order);
     }
+
+    // 根据课程id和用户id查询订单表订单状态
+    @GetMapping("/isBuyCourse/{courseId}/{memberId}")
+    public boolean isBuyCourse(@PathVariable String courseId, @PathVariable String memberId) {
+        QueryWrapper<Order> orderQueryWrapper = new QueryWrapper<>();
+        orderQueryWrapper.eq("course_id", courseId);
+        orderQueryWrapper.eq("member_id", memberId);
+        orderQueryWrapper.eq("status", 1);
+
+        int count = orderService.count(orderQueryWrapper);
+        if (count > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 

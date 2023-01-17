@@ -15,7 +15,7 @@
         WHERE ec.id=#{courseId}
     </select>
     <select id="getBaseCourseInfo" resultType="com.chu.eduservice.entity.frontvo.CourseWebVo">
-        SELECT ec.id, ec.title, ec.lesson_num AS lessonNum, ec.cover,
+        SELECT ec.id, ec.title, ec.price, ec.lesson_num AS lessonNum, ec.cover,
                ec.buy_count AS buyCount, ec.view_count AS viewCount,
                ecd.description,
                et.id AS teacherId, et.`name` AS teacherName, et.intro, et.avatar,
